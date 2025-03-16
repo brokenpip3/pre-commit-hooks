@@ -18,6 +18,12 @@ repos:
   hooks:
     - id: reorder-python-imports
 
+- repo: git@github.com:brokenpip3/pre-commit-hooks
+  rev: 2e66d2cdfa400781b92d6a5cd165d45130105dc6
+  hooks:
+    - id: github-actions-hash
+      files: ^.github/workflows/.*\.(yml|yaml)$ # limit only to github workflows
+
 - repo: local
   hooks:
   - id: pytest-check

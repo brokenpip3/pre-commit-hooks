@@ -18,16 +18,16 @@ This will prevent the action from changing and breaking your workflow, or even w
 It's just a quick solution that will leverage `ls-remote` git functionality and only support tags, not branches.
 
 I wrote it after the `tj-actions` [incident](https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised) to
-quickly fix all my workflows in all my repositories and can be used both as standalone or as a pre-commit hook.
+quickly fix all my workflows in all my repositories and can be used both as standalone (to quickly fix all the workflow in a repo) or as a pre-commit hook (to be sure that all the new workflows will be fixed).
 
 #### Usage
 
 ```yaml
 - repo: https://github.com/brokenpip3/pre-commit-hooks
-  rev: v0.1.0
+  rev: 2e66d2cdfa400781b92d6a5cd165d45130105dc6 # frozen: 0.0.1
   hooks:
     - id: github-actions-hash
-      files: ^github/workflows/.*\.(yml|yaml)$ # Limit only to github workflows
+      files: ^.github/workflows/.*\.(yml|yaml)$ # Limit only to github workflows
 ```
 
 #### Example output

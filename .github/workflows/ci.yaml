@@ -1,0 +1,41 @@
+name: CI
+
+concurrency:
+  group: "ci"
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  tests:
+    if: github.event.pull_request.draft == false
+    name: tests
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ["test", "lint", "check", "coverage"]
+    steps:
+    - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
+      with:
+        diagnostic-endpoint: ""
+    - name: Check out code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+    - name: Test ${{ matrix.test }}
+      run: nix develop . --command task ${{ matrix.test }}
+
+    - name: Coverage comment
+      if: matrix.test == 'coverage'
+      uses: py-cov-action/python-coverage-comment-action@57fcc5cd0dc3e5e78df0d7acd857dd1eed0378c1 # v3
+      with:
+        GITHUB_TOKEN: ${{ github.token }}

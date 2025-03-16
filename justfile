@@ -18,3 +18,7 @@ lint:
 # Run tests
 test:
     pytest -s -v
+
+# Run tests with coverage
+coverage:
+    pytest --cov=hooks --cov-report=term-missing
