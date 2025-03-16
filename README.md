@@ -6,9 +6,16 @@ This repository contains my pre-commit hooks, feel free to contribute.
 
 ### `github-actions-hash`
 
-This hook will automatically replace each github action dependency with the hash of the specific tag.
+This simple hook will automatically replace each github action dependency with the hash of the specific tag and a human readable tag that dependabot will keep/update in the future.
 
-This will prevent the action from changing and breaking your workflow, or even worse, introduce a security vulnerability/malicious code.
+```diff
+       - name: Create Pull Request
+-        uses: peter-evans/create-pull-request@v7
++        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7
+```
+
+This will prevent the action from changing and breaking your workflow, or even worse, introduce a security vulnerability/malicious code by repushing a tag.
+It's just a quick solution that will leverage `ls-remote` git functionality and only support tags, not branches.
 
 I wrote it after the `tj-actions` [incident](https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised) to
 quickly fix all my workflows in all my repositories and can be used both as standalone or as a pre-commit hook.
@@ -20,5 +27,21 @@ quickly fix all my workflows in all my repositories and can be used both as stan
   rev: v0.1.0
   hooks:
     - id: github-actions-hash
-      files: ^github/workflows/.*\.(yml|yaml)$
+      files: ^github/workflows/.*\.(yml|yaml)$ # Limit only to github workflows
+```
+
+#### Example output
+
+```bash
+github action hash replacer..............................................Failed
+- hook id: github-actions-hash
+- duration: 24.66s
+- exit code: 1
+- files were modified by this hook
+
+-> updated:       .github/workflows/pr.yaml
+-> not needed in: .github/workflows/auto-check-updates.yaml
+-> updated:       .github/workflows/build-image.yaml
+-> updated:       .github/workflows/auto-push-updates.yaml
+-> updated:       .github/workflows/update-pre-commit-hooks.yaml
 ```
