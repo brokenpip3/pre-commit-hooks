@@ -1,0 +1,5 @@
+- id: github-actions-hash
+  name: github action hash replacer
+  description: 'replace github actions tags with the actual hash for a better reproducibility'
+  entry: github-actions-hash
+  language: python

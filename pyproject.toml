@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brokenpip3_pre_commit_hooks"
+version = "0.0.1"
+description = "My pre-commit hooks"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "brokenpip3", email = "brokenpip3@gmail.com"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/brokenpip3/pre-commit-hooks"
+"Bug Tracker" = "https://github.com/brokenpip3/pre-commit-hooks/issues"
+
+[project.scripts]
+github-actions-hash = "hooks.github_actions_hash:main"
+
+[tool.setuptools]
+packages = ["hooks"]
+
+[tool.pytest]
+testpaths = ["tests"]
