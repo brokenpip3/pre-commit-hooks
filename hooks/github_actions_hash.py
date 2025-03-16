@@ -4,6 +4,7 @@ import re
 import subprocess
 import sys
 
+# needs git and only works with tags, not branches
 
 def get_tag_hash(action_name, tag):
     try:
