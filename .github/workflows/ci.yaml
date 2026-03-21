@@ -7,8 +7,8 @@ concurrency:
 on:
   push:
     branches:
-      - main
-      - develop
+    - main
+    - develop
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
 
@@ -25,9 +25,7 @@ jobs:
       matrix:
         test: ["test", "lint", "check", "coverage"]
     steps:
-    - uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3 # v17
-      with:
-        diagnostic-endpoint: ""
+    - uses: NixOS/nix-installer-action@228d8a956062db04221c97c2794ea443194824aa
     - name: Check out code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
